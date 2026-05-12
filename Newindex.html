@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenfield Academy</title>
+
+    <style>
+
+        /* =========================
+           GLOBAL STYLES
+        ========================= */
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            background:#f4f7fb;
+            color:#333;
+            line-height:1.6;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header{
+            background:linear-gradient(135deg,#1e3c72,#2a5298);
+            color:white;
+            padding:15px 30px;
+            position:sticky;
+            top:0;
+            z-index:1000;
+        }
+
+        .navbar{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .logo{
+            font-size:28px;
+            font-weight:bold;
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        nav ul{
+            display:flex;
+            list-style:none;
+        }
+
+        nav ul li{
+            margin-left:25px;
+        }
+
+        nav ul li a{
+            color:white;
+            text-decoration:none;
+            font-weight:bold;
+            transition:0.3s;
+        }
+
+        nav ul li a:hover{
+            color:#ffd700;
+        }
+
+        /* =========================
+           HAMBURGER MENU
+        ========================= */
+
+        .menu-toggle{
+            display:none;
+            font-size:30px;
+            cursor:pointer;
+        }
+
+        /* =========================
+           HERO SECTION
+        ========================= */
+
+        .hero{
+            min-height:90vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            color:white;
+            padding:20px;
+
+            /* Banner Gradient Background */
+            background:
+            linear-gradient(rgba(0,0,0,0.5),
+            rgba(0,0,0,0.5)),
+            linear-gradient(135deg,#1e3c72,#2a5298);
+        }
+
+        .hero-content{
+            max-width:800px;
+        }
+
+        .hero h1{
+            font-size:50px;
+            margin-bottom:20px;
+        }
+
+        .hero p{
+            font-size:20px;
+            margin-bottom:25px;
+        }
+
+        button{
+            padding:12px 25px;
+            border:none;
+            border-radius:5px;
+            background:#ffd700;
+            color:#333;
+            font-size:16px;
+            cursor:pointer;
+            transition:0.3s;
+            font-weight:bold;
+        }
+
+        button:hover{
+            background:white;
+            transform:scale(1.05);
+        }
+
+        #welcomeMessage{
+            margin-top:20px;
+            font-size:22px;
+            display:none;
+            color:#ffd700;
+            font-weight:bold;
+        }
+
+        /* =========================
+           SECTIONS
+        ========================= */
+
+        section{
+            padding:70px 20px;
+        }
+
+        h2{
+            text-align:center;
+            margin-bottom:25px;
+            color:#1e3c72;
+            font-size:36px;
+        }
+
+        .section-text{
+            max-width:900px;
+            margin:auto;
+            text-align:center;
+            font-size:18px;
+        }
+
+        /* =========================
+           COURSES
+        ========================= */
+
+        .course-container{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:25px;
+            margin-top:40px;
+        }
+
+        .course-card{
+            background:white;
+            padding:25px;
+            border-radius:12px;
+            box-shadow:0 5px 15px rgba(0,0,0,0.1);
+            transition:0.3s;
+            text-align:center;
+        }
+
+        .course-card:hover{
+            transform:translateY(-8px);
+        }
+
+        .course-card h3{
+            color:#2a5298;
+            margin-bottom:15px;
+        }
+
+        /* =========================
+           CONTACT FORM
+        ========================= */
+
+        form{
+            max-width:600px;
+            margin:auto;
+            background:white;
+            padding:30px;
+            border-radius:12px;
+            box-shadow:0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        input,
+        textarea{
+            width:100%;
+            padding:12px;
+            margin:10px 0;
+            border:1px solid #ccc;
+            border-radius:5px;
+            font-size:16px;
+        }
+
+        textarea{
+            resize:none;
+        }
+
+        .error{
+            color:red;
+            font-size:14px;
+            text-align:left;
+            margin-bottom:10px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer{
+            background:#1e3c72;
+            color:white;
+            text-align:center;
+            padding:20px;
+        }
+
+        /* =========================
+           RESPONSIVE DESIGN
+        ========================= */
+
+        @media(max-width:768px){
+
+            .menu-toggle{
+                display:block;
+            }
+
+            nav{
+                width:100%;
+                display:none;
+            }
+
+            nav.active{
+                display:block;
+            }
+
+            nav ul{
+                flex-direction:column;
+                text-align:center;
+                margin-top:20px;
+            }
+
+            nav ul li{
+                margin:15px 0;
+            }
+
+            .hero h1{
+                font-size:36px;
+            }
+
+            .hero p{
+                font-size:18px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <header>
+
+        <div class="navbar">
+
+            <!-- School Name -->
+            <div class="logo">Greenfield Academy</div>
+
+            <!-- Hamburger Icon -->
+            <div class="menu-toggle" id="menu-toggle">
+                ☰
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav id="nav-menu">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+        </div>
+
+    </header>
+
+    <!-- =========================
+         HERO SECTION
+    ========================= -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <h1>Welcome to Greenfield Academy</h1>
+
+            <p>
+                Building bright futures through quality education,
+                creativity, and innovation.
+            </p>
+
+            <!-- Welcome Button -->
+            <button onclick="toggleMessage()">
+                Click for Welcome Message
+            </button>
+
+            <!-- Hidden Message -->
+            <div id="welcomeMessage">
+                🎉 Welcome to our school! We are happy to have you here.
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =========================
+         ABOUT SECTION
+    ========================= -->
+
+    <section id="about">
+
+        <h2>About Our School</h2>
+
+        <div class="section-text">
+
+            <p>
+                Greenfield Academy is dedicated to providing excellent
+                education and developing students into confident,
+                knowledgeable, and responsible individuals.
+            </p>
+
+            <br>
+
+            <p>
+                Our experienced teachers, modern classrooms,
+                and student-friendly environment help students
+                achieve success in academics and personal growth.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- =========================
+         COURSES SECTION
+    ========================= -->
+
+    <section id="courses">
+
+        <h2>Our Courses</h2>
+
+        <div class="course-container">
+
+            <!-- Course 1 -->
+            <div class="course-card">
+                <h3>Science</h3>
+                <p>
+                    Learn Physics, Chemistry, and Biology
+                    with practical experiments and activities.
+                </p>
+            </div>
+
+            <!-- Course 2 -->
+            <div class="course-card">
+                <h3>Mathematics</h3>
+                <p>
+                    Improve logical thinking and problem-solving
+                    skills through engaging lessons.
+                </p>
+            </div>
+
+            <!-- Course 3 -->
+            <div class="course-card">
+                <h3>Computer Education</h3>
+                <p>
+                    Learn programming, web development,
+                    and digital skills for the future.
+                </p>
+            </div>
+
+            <!-- Course 4 -->
+            <div class="course-card">
+                <h3>English Communication</h3>
+                <p>
+                    Develop speaking, writing,
+                    and communication skills confidently.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =========================
+         CONTACT SECTION
+    ========================= -->
+
+    <section id="contact">
+
+        <h2>Contact Us</h2>
+
+        <form id="contactForm">
+
+            <!-- Name -->
+            <input type="text" id="name" placeholder="Enter your name">
+            <div class="error" id="nameError"></div>
+
+            <!-- Email -->
+            <input type="email" id="email" placeholder="Enter your email">
+            <div class="error" id="emailError"></div>
+
+            <!-- Message -->
+            <textarea id="message" rows="5" placeholder="Enter your message"></textarea>
+            <div class="error" id="messageError"></div>
+
+            <!-- Submit -->
+            <button type="submit">
+                Send Message
+            </button>
+
+        </form>
+
+    </section>
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <p>
+            © 2026 Greenfield Academy | All Rights Reserved
+        </p>
+
+        <p>
+            📍 Gujarat, India | 📞 +91 9876543210
+        </p>
+
+    </footer>
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        /* =========================
+           MOBILE MENU TOGGLE
+        ========================= */
+
+        const menuToggle = document.getElementById("menu-toggle");
+        const navMenu = document.getElementById("nav-menu");
+
+        menuToggle.addEventListener("click", () => {
+            navMenu.classList.toggle("active");
+        });
+
+        /* =========================
+           WELCOME MESSAGE TOGGLE
+        ========================= */
+
+        function toggleMessage(){
+
+            const message =
+            document.getElementById("welcomeMessage");
+
+            if(message.style.display === "none" ||
+               message.style.display === ""){
+
+                message.style.display = "block";
+
+            }else{
+
+                message.style.display = "none";
+            }
+        }
+
+        /* =========================
+           FORM VALIDATION
+        ========================= */
+
+        const form =
+        document.getElementById("contactForm");
+
+        form.addEventListener("submit", function(event){
+
+            event.preventDefault();
+
+            // Input Values
+            const name =
+            document.getElementById("name").value.trim();
+
+            const email =
+            document.getElementById("email").value.trim();
+
+            const message =
+            document.getElementById("message").value.trim();
+
+            // Error Elements
+            const nameError =
+            document.getElementById("nameError");
+
+            const emailError =
+            document.getElementById("emailError");
+
+            const messageError =
+            document.getElementById("messageError");
+
+            // Clear old errors
+            nameError.textContent = "";
+            emailError.textContent = "";
+            messageError.textContent = "";
+
+            let isValid = true;
+
+            /* =========================
+               EMPTY FIELD CHECK
+            ========================= */
+
+            if(name === ""){
+                nameError.textContent =
+                "Please enter your name.";
+                isValid = false;
+            }
+
+            if(email === ""){
+                emailError.textContent =
+                "Please enter your email.";
+                isValid = false;
+            }
+
+            if(message === ""){
+                messageError.textContent =
+                "Please enter your message.";
+                isValid = false;
+            }
+
+            /* =========================
+               EMAIL VALIDATION
+            ========================= */
+
+            const emailPattern =
+            /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+            if(email !== "" &&
+               !email.match(emailPattern)){
+
+                emailError.textContent =
+                "Please enter a valid email.";
+                isValid = false;
+            }
+
+            /* =========================
+               SUCCESS MESSAGE
+            ========================= */
+
+            if(isValid){
+
+                alert(
+                    "✅ Form submitted successfully!"
+                );
+
+                form.reset();
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
